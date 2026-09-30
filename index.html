@@ -1,0 +1,1099 @@
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Application Interactive - Cours d'Informatique 10ème CG (CPIES Mali)</title>
+  <style>
+    :root {
+      --primary: #1e3a8a;
+      --primary-light: #2563eb;
+      --secondary: #059669;
+      --warning: #d97706;
+      --danger: #dc2626;
+      --bg: #f1f5f9;
+      --sidebar-bg: #0f172a;
+      --card-bg: #ffffff;
+      --text: #0f172a;
+      --text-muted: #64748b;
+      --border: #e2e8f0;
+      --radius: 12px;
+    }
+
+    * {
+      box-sizing: border-box;
+      margin: 0;
+      padding: 0;
+      font-family: 'Segoe UI', system-ui, -apple-system, sans-serif;
+    }
+
+    body {
+      background-color: var(--bg);
+      color: var(--text);
+      display: flex;
+      min-height: 100vh;
+    }
+
+    /* Menu Latéral */
+    #sidebar {
+      width: 320px;
+      background: var(--sidebar-bg);
+      color: #fff;
+      display: flex;
+      flex-direction: column;
+      flex-shrink: 0;
+      height: 100vh;
+      position: sticky;
+      top: 0;
+      overflow-y: auto;
+    }
+
+    .brand {
+      padding: 24px 20px;
+      background: rgba(255, 255, 255, 0.05);
+      border-bottom: 1px solid rgba(255, 255, 255, 0.1);
+    }
+
+    .brand h1 {
+      font-size: 1.15rem;
+      font-weight: 700;
+      color: #60a5fa;
+    }
+
+    .brand p {
+      font-size: 0.8rem;
+      color: #94a3b8;
+      margin-top: 4px;
+    }
+
+    .nav-group-title {
+      padding: 16px 20px 8px;
+      font-size: 0.72rem;
+      text-transform: uppercase;
+      letter-spacing: 0.05em;
+      color: #64748b;
+      font-weight: 700;
+    }
+
+    .nav-item {
+      display: flex;
+      align-items: center;
+      padding: 12px 20px;
+      color: #cbd5e1;
+      text-decoration: none;
+      font-size: 0.9rem;
+      cursor: pointer;
+      border-left: 4px solid transparent;
+      transition: all 0.2s;
+    }
+
+    .nav-item:hover {
+      background: rgba(255, 255, 255, 0.05);
+      color: #fff;
+    }
+
+    .nav-item.active {
+      background: rgba(37, 99, 235, 0.2);
+      border-left-color: var(--primary-light);
+      color: #fff;
+      font-weight: 600;
+    }
+
+    /* Contenu Principal */
+    #main-content {
+      flex: 1;
+      padding: 40px;
+      overflow-y: auto;
+      max-width: 960px;
+      margin: 0 auto;
+    }
+
+    .progress-bar-container {
+      background: #e2e8f0;
+      border-radius: 999px;
+      height: 8px;
+      margin-bottom: 24px;
+      overflow: hidden;
+    }
+
+    .progress-bar {
+      height: 100%;
+      background: var(--primary-light);
+      width: 0%;
+      transition: width 0.3s ease;
+    }
+
+    .card {
+      background: var(--card-bg);
+      border-radius: var(--radius);
+      padding: 24px;
+      box-shadow: 0 4px 6px -1px rgba(0, 0, 0, 0.05);
+      border: 1px solid var(--border);
+      margin-bottom: 24px;
+    }
+
+    .badge {
+      display: inline-block;
+      padding: 4px 10px;
+      border-radius: 6px;
+      font-size: 0.75rem;
+      font-weight: 700;
+      text-transform: uppercase;
+      margin-bottom: 12px;
+    }
+
+    .badge-problem { background: #fef3c7; color: #b45309; }
+    .badge-activity { background: #e0e7ff; color: #3730a3; }
+    .badge-course { background: #dbeafe; color: #1e40af; }
+    .badge-quiz { background: #dcfce7; color: #15803d; }
+
+    h2 { font-size: 1.5rem; color: #0f172a; margin-bottom: 12px; }
+    h3 { font-size: 1.15rem; color: #1e293b; margin: 16px 0 8px; }
+    p, li { font-size: 0.95rem; line-height: 1.6; color: #334155; }
+    ul { margin-left: 20px; margin-top: 8px; }
+
+    .summary-box {
+      background: #eff6ff;
+      border-left: 4px solid var(--primary-light);
+      padding: 16px;
+      border-radius: 0 8px 8px 0;
+      margin: 16px 0;
+    }
+
+    /* Style des Activités Interactives */
+    .activity-area {
+      background: #f8fafc;
+      border: 2px dashed #cbd5e1;
+      border-radius: 8px;
+      padding: 20px;
+      margin-top: 14px;
+    }
+
+    .drag-items {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 10px;
+      margin-bottom: 20px;
+    }
+
+    .drag-item {
+      background: #fff;
+      padding: 8px 14px;
+      border: 1px solid #94a3b8;
+      border-radius: 6px;
+      font-size: 0.85rem;
+      font-weight: 600;
+      cursor: grab;
+      user-select: none;
+      box-shadow: 0 2px 4px rgba(0,0,0,0.05);
+    }
+
+    .drag-item.selected {
+      background: #dbeafe;
+      border-color: var(--primary-light);
+    }
+
+    .drop-zones {
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+      gap: 16px;
+    }
+
+    .drop-zone {
+      background: #fff;
+      border: 2px dashed #94a3b8;
+      border-radius: 8px;
+      padding: 14px;
+      min-height: 120px;
+      display: flex;
+      flex-direction: column;
+      gap: 6px;
+    }
+
+    .drop-zone h4 {
+      font-size: 0.85rem;
+      text-transform: uppercase;
+      color: #64748b;
+      margin-bottom: 6px;
+      text-align: center;
+    }
+
+    /* Mini Simulateur Windows & Word */
+    .win-desktop {
+      background: linear-gradient(135deg, #004e92, #000428);
+      height: 250px;
+      border-radius: 8px;
+      position: relative;
+      overflow: hidden;
+      display: flex;
+      flex-direction: column;
+      justify-content: space-between;
+      color: #fff;
+      user-select: none;
+    }
+
+    .desktop-icons {
+      padding: 14px;
+      display: flex;
+      flex-direction: column;
+      gap: 16px;
+      align-items: flex-start;
+    }
+
+    .win-icon {
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      font-size: 0.75rem;
+      cursor: pointer;
+      width: 70px;
+      text-align: center;
+    }
+
+    .win-taskbar {
+      height: 34px;
+      background: rgba(0, 0, 0, 0.7);
+      backdrop-filter: blur(5px);
+      display: flex;
+      align-items: center;
+      padding: 0 10px;
+      justify-content: space-between;
+      font-size: 0.8rem;
+    }
+
+    .start-btn {
+      background: #0078d7;
+      padding: 4px 10px;
+      border-radius: 4px;
+      cursor: pointer;
+      font-weight: bold;
+    }
+
+    .context-menu {
+      position: absolute;
+      background: #fff;
+      color: #0f172a;
+      border-radius: 6px;
+      box-shadow: 0 4px 12px rgba(0,0,0,0.2);
+      font-size: 0.85rem;
+      width: 160px;
+      display: none;
+      z-index: 10;
+    }
+
+    .context-menu-item {
+      padding: 8px 14px;
+      cursor: pointer;
+    }
+
+    .context-menu-item:hover {
+      background: #e2e8f0;
+    }
+
+    /* Clavier virtuel */
+    .keyboard {
+      display: flex;
+      gap: 6px;
+      margin-top: 10px;
+    }
+
+    .key-btn {
+      padding: 10px 14px;
+      background: #e2e8f0;
+      border: 1px solid #cbd5e1;
+      border-radius: 4px;
+      font-size: 0.9rem;
+      cursor: pointer;
+      font-weight: 600;
+    }
+
+    .key-btn.active {
+      background: var(--primary-light);
+      color: white;
+    }
+
+    /* Éditeur Word */
+    .word-ribbon {
+      background: #f1f5f9;
+      border-bottom: 1px solid #cbd5e1;
+      padding: 8px;
+      display: flex;
+      gap: 8px;
+      flex-wrap: wrap;
+    }
+
+    .word-page {
+      background: white;
+      min-height: 120px;
+      padding: 16px;
+      outline: none;
+      border: 1px solid #cbd5e1;
+      margin-top: 8px;
+      line-height: 1.5;
+    }
+
+    /* Boutons de navigation */
+    .btn-actions {
+      display: flex;
+      justify-content: space-between;
+      margin-top: 24px;
+    }
+
+    button.btn {
+      background: var(--primary);
+      color: #fff;
+      border: none;
+      padding: 10px 20px;
+      border-radius: 8px;
+      font-size: 0.9rem;
+      font-weight: 600;
+      cursor: pointer;
+      transition: background 0.2s;
+    }
+
+    button.btn:hover { background: var(--primary-light); }
+    button.btn-secondary { background: #e2e8f0; color: #334155; }
+    button.btn-secondary:hover { background: #cbd5e1; }
+    button.btn-check { background: var(--secondary); margin-top: 12px; }
+
+    /* ============ MENU MOBILE (bouton hamburger) ============ */
+    #menu-toggle {
+      display: none;
+      position: fixed;
+      top: 12px;
+      left: 12px;
+      z-index: 60;
+      width: 46px;
+      height: 46px;
+      border: none;
+      border-radius: 10px;
+      background: var(--primary);
+      color: #fff;
+      font-size: 1.3rem;
+      line-height: 1;
+      cursor: pointer;
+      box-shadow: 0 2px 10px rgba(0, 0, 0, 0.3);
+    }
+    #menu-toggle:active { background: var(--primary-light); }
+
+    #sidebar-overlay {
+      display: none;
+      position: fixed;
+      top: 0; left: 0; right: 0; bottom: 0;
+      background: rgba(15, 23, 42, 0.55);
+      z-index: 55;
+    }
+    #sidebar-overlay.visible { display: block; }
+
+    /* ============ ADAPTATION PETITS ÉCRANS ============ */
+    @media (max-width: 900px) {
+      #menu-toggle { display: block; }
+
+      #sidebar {
+        position: fixed;
+        top: 0; left: 0; bottom: 0;
+        height: 100vh;
+        z-index: 58;
+        transform: translateX(-100%);
+        transition: transform 0.25s ease;
+        box-shadow: 4px 0 24px rgba(0, 0, 0, 0.35);
+      }
+      #sidebar.open { transform: translateX(0); }
+
+      #main-content {
+        padding: 72px 16px 40px;
+        max-width: 100%;
+      }
+
+      h2 { font-size: 1.25rem; }
+      h3 { font-size: 1.05rem; }
+      .card { padding: 18px 16px; margin-bottom: 18px; }
+      .activity-area { padding: 14px; }
+      .summary-box { padding: 12px; }
+
+      .btn-actions { flex-direction: column; gap: 10px; }
+      .btn-actions button.btn { width: 100%; }
+
+      .drop-zones { grid-template-columns: 1fr; }
+      .drop-zone { min-height: 96px; }
+
+      .drag-items { gap: 8px; }
+      .drag-item { padding: 8px 12px; font-size: 0.8rem; }
+
+      .keyboard { flex-wrap: wrap; gap: 8px; }
+      .key-btn { padding: 12px 14px; font-size: 0.95rem; }
+
+      .word-ribbon { gap: 6px; padding: 6px; }
+      .word-ribbon .key-btn { padding: 10px 12px; font-size: 0.85rem; }
+      .word-page { min-height: 160px; padding: 14px; }
+
+      .win-desktop { height: 220px; }
+      .context-menu { width: 150px; }
+    }
+
+    /* Très petits écrans (téléphones ≤ 380px) */
+    @media (max-width: 380px) {
+      #main-content { padding: 68px 12px 32px; }
+      .brand h1 { font-size: 1rem; }
+      .nav-item { padding: 11px 16px; font-size: 0.85rem; }
+      .win-taskbar { font-size: 0.72rem; }
+    }
+
+    @media print {
+      #menu-toggle, #sidebar-overlay { display: none !important; }
+    }
+  </style>
+</head>
+<body>
+
+  <button id="menu-toggle" aria-label="Ouvrir le menu" aria-expanded="false">☰</button>
+  <div id="sidebar-overlay"></div>
+
+  <!-- Menu Latéral -->
+  <aside id="sidebar">
+    <div class="brand">
+      <h1>Informatique 10<sup>ème</sup> CG</h1>
+      <p>CPIES Mali • Programme APC avec Activités</p>
+    </div>
+    <div id="nav-list"></div>
+  </aside>
+
+  <!-- Zone Principale -->
+  <main id="main-content">
+    <div class="progress-bar-container">
+      <div class="progress-bar" id="progress-indicator"></div>
+    </div>
+    <div id="lesson-viewport"></div>
+  </main>
+
+  <script>
+    const curriculum = [
+      {
+        id: "ua1_c1_l1",
+        ua: "UA 1: Généralités sur l'Informatique",
+        title: "Leçon 1: Notions de Traitement & Définitions",
+        situation: "Dans quel domaine apprend-on à manipuler l'ordinateur ?",
+        activities: [
+          {
+            type: "speed-calc",
+            title: "Activité 1: Calcul mental vs Traitement automatique",
+            desc: "Résolvez d'abord l'opération simple mentalement, puis voyez le temps requis pour l'opération complexe sans machine.",
+            simple: "5 × 4 = ?",
+            complex: "2598 × 36 = ?",
+            complexAnswer: 93528
+          },
+          {
+            type: "choice",
+            title: "Activité 2: Composition du mot Informatique",
+            question: "Selon vous, de quels mots est composé le mot « Informatique » ?",
+            options: [
+              { text: "Information + Automobile", correct: false },
+              { text: "Information + Automatique", correct: true },
+              { text: "Information + Mathématiques", correct: false }
+            ]
+          }
+        ],
+        course: `
+          <div class="summary-box">
+            <p><strong>Traitement automatique :</strong> Opération réalisée par une machine telle que l'ordinateur.</p>
+            <p><strong>Traitement mental ou manuel :</strong> Opération réalisée par l'Homme sans machine.</p>
+            <p><strong>Informatique :</strong> Combinaison de <em>INFOR</em>mation et auto<em>MATIQUE</em>. C'est la science du traitement automatique de l'information par ordinateur.</p>
+            <p><strong>Données :</strong> Informations gardées et traitées dans l'ordinateur.</p>
+          </div>
+        `
+      },
+      {
+        id: "ua1_c1_l2",
+        ua: "UA 1: Généralités sur l'Informatique",
+        title: "Leçon 2: Système informatique (Hardware & Software)",
+        situation: "Un informaticien dit que l'ordinateur est conçu à l'image de l'homme : corps physique et esprit immatériel. Est-ce exact ?",
+        activities: [
+          {
+            type: "drag-drop",
+            title: "Activité pratique: Séparation Matériel vs Logiciel",
+            desc: "Classez chaque élément en cliquant dessus puis en cliquant sur la zone correspondante.",
+            items: ["Écran", "Windows 10", "Souris", "MS Word", "Processeur", "Navigateur"],
+            zones: {
+              "Partie Matérielle (Hardware)": ["Écran", "Souris", "Processeur"],
+              "Partie Logicielle (Software)": ["Windows 10", "MS Word", "Navigateur"]
+            }
+          }
+        ],
+        course: `
+          <div class="summary-box">
+            <p><strong>Système informatique :</strong> Ensemble de composants organisés ayant pour finalité de collecter, traiter, stocker, acheminer et présenter des informations.</p>
+            <p><strong>Partie matérielle (Hardware) :</strong> Partie physique et touchable (visible et palpable).</p>
+            <p><strong>Partie logicielle (Software) :</strong> Partie immatérielle composée uniquement de programmes et de logiciels.</p>
+          </div>
+        `
+      },
+      {
+        id: "ua1_c2_l1",
+        ua: "UA 1: Généralités sur l'Informatique",
+        title: "Leçon 3: La carte mère, CPU et Mémoires",
+        situation: "Quel est l'élément le plus important à l'intérieur de l'unité centrale sans lequel aucun calcul ne se fait ?",
+        activities: [
+          {
+            type: "match-role",
+            title: "Activité pratique: Rôles des composants internes",
+            desc: "Associez chaque composant interne à sa description exacte :",
+            items: [
+              { name: "Processeur (CPU)", desc: "Cerveau réalisant les opérations arithmétiques et logiques (GHz)" },
+              { name: "Mémoire RAM", desc: "Mémoire vive rapide pour emmagasiner temporairement les données en cours" },
+              { name: "Disque Dur", desc: "Support de stockage permanent des fichiers et programmes (Go/To)" }
+            ]
+          }
+        ],
+        course: `
+          <div class="summary-box">
+            <p><strong>Carte mère :</strong> Plaque électronique principale qui centralise et connecte tous les composants.</p>
+            <p><strong>Processeur :</strong> Le cerveau de l'ordinateur, mesuré en Gigahertz (GHz).</p>
+            <p><strong>RAM (Random Access Memory) :</strong> Mémoire vive ultrarapide effacée à l'extinction.</p>
+            <p><strong>Disque dur :</strong> Sauvegarde permanente de grande capacité.</p>
+          </div>
+        `
+      },
+      {
+        id: "ua1_c2_l2",
+        ua: "UA 1: Généralités sur l'Informatique",
+        title: "Leçon 4: Périphériques & Unités de stockage",
+        situation: "Quels sont les périphériques indispensables pour utiliser l'ordinateur ?",
+        activities: [
+          {
+            type: "drag-drop",
+            title: "Activité pratique: Classification des Périphériques",
+            desc: "Classez les périphériques selon leur fonction :",
+            items: ["Clavier", "Écran", "Souris", "Imprimante", "Clé USB", "Webcam", "Disque dur externe", "Haut-parleur"],
+            zones: {
+              "Entrée": ["Clavier", "Souris", "Webcam"],
+              "Sortie": ["Écran", "Imprimante", "Haut-parleur"],
+              "Stockage": ["Clé USB", "Disque dur externe"]
+            }
+          },
+          {
+            type: "octet-calc",
+            title: "Activité 4: Calcul et conversion d'octets",
+            question: "Combien d'octets y a-t-il dans 2 Ko (Kilooctets) ?",
+            answer: 2048,
+            hint: "Rappel : 1 Ko = 1024 Octets"
+          }
+        ],
+        course: `
+          <div class="summary-box">
+            <p><strong>Périphériques indispensables :</strong> Moniteur (écran), Clavier, Souris.</p>
+            <p><strong>Mesure d'écran :</strong> Exprimée en pouces de diagonale (1 pouce = 2,54 cm).</p>
+            <p><strong>Unités de stockage :</strong> 1 Octet = 8 bits. 1 Ko = 1024 O, 1 Mo = 1024 Ko, 1 Go = 1024 Mo, 1 To = 1024 Go.</p>
+          </div>
+        `
+      },
+      {
+        id: "ua2_c1_l1",
+        ua: "UA 2: Manipulation de l'ordinateur",
+        title: "Leçon 5: Mise en marche & Environnement",
+        situation: "Quelles sont les conditions idéales avant d'allumer un ordinateur ?",
+        activities: [
+          {
+            type: "sim-power",
+            title: "Activité pratique: Procédure d'allumage sécurisée",
+            desc: "Cliquez dans l'ordre chronologique exact pour allumer votre poste :",
+            steps: [
+              "Vérifier le branchement à l'onduleur",
+              "Allumer l'écran (moniteur)",
+              "Allumer l'unité centrale (bouton Power)"
+            ]
+          }
+        ],
+        course: `
+          <div class="summary-box">
+            <p><strong>Environnement idéal :</strong> Spacieux, propre, sec, aéré, protégé de la poussière et relié à un <strong>onduleur</strong> régulateur de tension.</p>
+            <p><strong>Mise en marche :</strong> Vérifier les câbles, allumer le moniteur puis l'unité centrale.</p>
+          </div>
+        `
+      },
+      {
+        id: "ua2_c1_l2",
+        ua: "UA 2: Manipulation de l'ordinateur",
+        title: "Leçon 6: Bureau Windows & Gestion des dossiers",
+        situation: "Comment organiser ses cours en dossiers et sous-dossiers sur le bureau ?",
+        activities: [
+          {
+            type: "sim-desktop",
+            title: "Simulateur Bureau Windows: Clic droit & Création de dossier",
+            desc: "Faites un clic droit sur la zone bleue du bureau simulé ci-dessous, puis cliquez sur 'Nouveau Dossier' pour créer le dossier 'Informatique'."
+          }
+        ],
+        course: `
+          <div class="summary-box">
+            <p><strong>Dossier :</strong> Icône jaune servant à organiser fichiers et sous-dossiers.</p>
+            <p><strong>Menu contextuel :</strong> Obtenu par un clic droit de la souris sur le bureau ou sur un dossier.</p>
+            <p><strong>Procédure de création :</strong> Clic droit &gt; Nouveau &gt; Dossier &gt; Taper le nom &gt; Touche Entrée.</p>
+          </div>
+        `
+      },
+      {
+        id: "ua2_c2_l1",
+        ua: "UA 2: Manipulation de l'ordinateur",
+        title: "Leçon 7: Traitement de texte (MS Word) - Saisie & Caractères",
+        situation: "Comment taper des caractères spéciaux comme '#', '@', ou '€' au clavier ?",
+        activities: [
+          {
+            type: "sim-keyboard",
+            title: "Activité pratique: Combinaisons de touches du clavier",
+            desc: "Testez les touches pour taper le symbole dièse (#) : Maintenez Alt/AltGr enfoncée puis appuyez sur 3."
+          }
+        ],
+        course: `
+          <div class="summary-box">
+            <p><strong>Saisie à 10 doigts :</strong> Utiliser la touche <strong>Entrée</strong> pour changer de paragraphe.</p>
+            <p><strong>Caractères combinés :</strong>
+              <ul>
+                <li>Minuscule directe : touche simple.</li>
+                <li>Majuscule : maintenir <strong>Maj (Shift)</strong> ou activer <strong>Verr.Maj</strong>.</li>
+                <li>Caractère bas-droit (ex: <code>#</code>, <code>@</code>) : maintenir <strong>Alt Gr</strong> enfoncée.</li>
+              </ul>
+            </p>
+          </div>
+        `
+      },
+      {
+        id: "ua2_c2_l2",
+        ua: "UA 2: Manipulation de l'ordinateur",
+        title: "Leçon 8: Traitement de texte - Mise en forme",
+        situation: "Comment modifier la taille, la police ou mettre en gras un passage d'un devoir ?",
+        activities: [
+          {
+            type: "sim-word",
+            title: "Mini-Éditeur Word: Appliquer Gras, Couleur et Taille",
+            desc: "Sélectionnez le texte ci-dessous avec votre curseur, puis cliquez sur les boutons du ruban pour changer son style."
+          }
+        ],
+        course: `
+          <div class="summary-box">
+            <p><strong>Règle d'or :</strong> Pour appliquer une mise en forme, il faut <strong>toujours sélectionner le texte</strong> avec la souris au préalable.</p>
+            <p><strong>Outils d'accueil :</strong> Police, Taille de police, Gras (G), Italique (I), Souligné (S), Couleur de police.</p>
+          </div>
+        `
+      },
+      {
+        id: "ua3_c1_l1",
+        ua: "UA 3: Généralités sur l'Internet",
+        title: "Leçon 9: Histoire, FAI & Navigateurs",
+        situation: "Quand Internet est-il arrivé au Mali et avec quels outils navigue-t-on ?",
+        activities: [
+          {
+            type: "drag-drop",
+            title: "Activité: Distinction Navigateur vs Moteur de Recherche",
+            desc: "Classez chaque outil dans sa catégorie :",
+            items: ["Google Chrome", "Mozilla Firefox", "Moteur Google", "Opera", "Yahoo Recherche", "Safari"],
+            zones: {
+              "Navigateur Web (Logiciel)": ["Google Chrome", "Mozilla Firefox", "Opera", "Safari"],
+              "Moteur de Recherche (Site/Service)": ["Moteur Google", "Yahoo Recherche"]
+            }
+          }
+        ],
+        course: `
+          <div class="summary-box">
+            <p><strong>Origine :</strong> Réseau américain ARPANET (années 1960). Web créé en 1990.</p>
+            <p><strong>Internet au Mali :</strong> Lancement officiel le <strong>20 Septembre 1997</strong>.</p>
+            <p><strong>Navigateur :</strong> Logiciel permettant d'afficher les pages Web (Chrome, Firefox, Safari...).</p>
+            <p><strong>Moteur de recherche :</strong> Outil permettant de chercher des pages via des mots-clés (Google, Yahoo...).</p>
+          </div>
+        `
+      },
+      {
+        id: "ua3_c2_l1",
+        ua: "UA 3: Généralités sur l'Internet",
+        title: "Leçon 10: Avantages & Dangers du Web",
+        situation: "Peut-on être à l'abri des dérives d'Internet ?",
+        activities: [
+          {
+            type: "drag-drop",
+            title: "Activité: Trier Avantages et Inconvénients",
+            desc: "Classez chaque pratique ou impact selon qu'il soit un avantage ou un danger :",
+            items: ["Recherche documentaire", "Cyberdépendance", "E-mails rapides", "Virus & piratage", "Vente en ligne", "Plagiat (copier/coller sans effort)"],
+            zones: {
+              "Avantages du Web": ["Recherche documentaire", "E-mails rapides", "Vente en ligne"],
+              "Dangers & Inconvénients": ["Cyberdépendance", "Virus & piratage", "Plagiat (copier/coller sans effort)"]
+            }
+          }
+        ],
+        course: `
+          <div class="summary-box">
+            <p><strong>Avantages :</strong> Accès illimité au savoir, communication instantanée, transactions et entraide.</p>
+            <p><strong>Inconvénients majeurs :</strong> Cyberdépendance (déconnexion de la vie sociale), piratage, virus, sites nuisibles et perte du goût de l'effort par le copier/coller.</p>
+          </div>
+        `
+      }
+    ];
+
+    let currentIdx = 0;
+    let selectedItem = null;
+
+    /* ---------- Menu mobile ---------- */
+    function menuOuvrir() {
+      document.getElementById("sidebar").classList.add("open");
+      document.getElementById("sidebar-overlay").classList.add("visible");
+      document.getElementById("menu-toggle").setAttribute("aria-expanded", "true");
+    }
+    function menuFermer() {
+      document.getElementById("sidebar").classList.remove("open");
+      document.getElementById("sidebar-overlay").classList.remove("visible");
+      document.getElementById("menu-toggle").setAttribute("aria-expanded", "false");
+    }
+    function initMenu() {
+      document.getElementById("menu-toggle").addEventListener("click", function () {
+        if (document.getElementById("sidebar").classList.contains("open")) { menuFermer(); }
+        else { menuOuvrir(); }
+      });
+      document.getElementById("sidebar-overlay").addEventListener("click", menuFermer);
+      document.addEventListener("keydown", function (e) {
+        if (e.key === "Escape") { menuFermer(); }
+      });
+    }
+
+    function initNavigation() {
+      const container = document.getElementById("nav-list");
+      container.innerHTML = "";
+      let lastUA = "";
+
+      curriculum.forEach((lesson, idx) => {
+        if (lesson.ua !== lastUA) {
+          lastUA = lesson.ua;
+          const groupTitle = document.createElement("div");
+          groupTitle.className = "nav-group-title";
+          groupTitle.textContent = lastUA;
+          container.appendChild(groupTitle);
+        }
+
+        const navLink = document.createElement("a");
+        navLink.className = `nav-item ${idx === currentIdx ? 'active' : ''}`;
+        navLink.textContent = lesson.title;
+        navLink.onclick = () => { renderLesson(idx); menuFermer(); };
+        container.appendChild(navLink);
+      });
+    }
+
+    function renderLesson(idx) {
+      currentIdx = idx;
+      const lesson = curriculum[idx];
+
+      const pct = ((idx + 1) / curriculum.length) * 100;
+      document.getElementById("progress-indicator").style.width = `${pct}%`;
+
+      const viewport = document.getElementById("lesson-viewport");
+      viewport.innerHTML = `
+        <div class="card">
+          <span class="badge badge-problem">Situation-Problème APC</span>
+          <h2>${lesson.title}</h2>
+          <p><strong>Mise en situation :</strong> ${lesson.situation}</p>
+        </div>
+
+        <div class="card">
+          <span class="badge badge-activity">Activités d'apprentissage interactives</span>
+          <div id="activities-container"></div>
+        </div>
+
+        <div class="card">
+          <span class="badge badge-course">Synthèse Pédagogique</span>
+          ${lesson.course}
+        </div>
+
+        <div class="btn-actions">
+          <button class="btn btn-secondary" onclick="renderLesson(${idx - 1})" ${idx === 0 ? 'disabled' : ''}>← Leçon précédente</button>
+          <button class="btn" onclick="renderLesson(${idx + 1})" ${idx === curriculum.length - 1 ? 'disabled' : ''}>Leçon suivante →</button>
+        </div>
+      `;
+
+      initNavigation();
+      renderActivities(lesson.activities);
+      window.scrollTo({ top: 0, behavior: 'smooth' });
+    }
+
+    function renderActivities(activities) {
+      const container = document.getElementById("activities-container");
+      container.innerHTML = "";
+
+      activities.forEach((act, actIdx) => {
+        const actDiv = document.createElement("div");
+        actDiv.className = "activity-area";
+        actDiv.id = "act-" + actIdx;
+
+        if (act.type === "speed-calc") {
+          actDiv.innerHTML = `
+            <h4>${act.title}</h4>
+            <p>${act.desc}</p>
+            <div style="margin-top: 10px;">
+              <p>1. Calcul mental simple : <strong>${act.simple}</strong> 
+                <input type="number" id="calc-simple" style="width: 60px; padding: 4px;">
+              </p>
+              <p style="margin-top: 8px;">2. Calcul complexe : <strong>${act.complex}</strong> 
+                <input type="number" id="calc-complex" style="width: 100px; padding: 4px;">
+                <button class="btn btn-check" onclick="checkCalc()">Vérifier</button>
+              </p>
+              <div id="calc-res" style="margin-top: 8px; font-weight: bold;"></div>
+            </div>
+          `;
+        } else if (act.type === "choice") {
+          actDiv.innerHTML = `
+            <h4>${act.title}</h4>
+            <p>${act.question}</p>
+            <div style="margin-top: 10px; display: flex; flex-direction: column; gap: 8px;">
+              ${act.options.map((opt, i) => `
+                <button class="key-btn" onclick="checkChoice(this, ${opt.correct})">${opt.text}</button>
+              `).join('')}
+            </div>
+            <div id="choice-res" style="margin-top: 8px; font-weight: bold;"></div>
+          `;
+        } else if (act.type === "drag-drop") {
+          actDiv.innerHTML = `
+            <h4>${act.title}</h4>
+            <p>${act.desc}</p>
+            <div class="drag-items" id="drag-items-${actIdx}">
+              ${act.items.map(item => `<div class="drag-item" onclick="selectDragItem(this)">${item}</div>`).join('')}
+            </div>
+            <div class="drop-zones">
+              ${Object.keys(act.zones).map(zoneName => `
+                <div class="drop-zone" onclick="dropToZone(this, '${zoneName}',${actIdx})">
+                  <h4>${zoneName}</h4>
+                </div>
+              `).join('')}
+            </div>
+            <button class="btn btn-check" onclick="validateDragDrop(${actIdx})">Valider le classement</button>
+            <div id="drop-res-${actIdx}" style="margin-top: 8px; font-weight: bold;"></div>
+          `;
+        } else if (act.type === "sim-power") {
+          actDiv.innerHTML = `
+            <h4>${act.title}</h4>
+            <p>${act.desc}</p>
+            <div style="display:flex; flex-direction: column; gap: 8px; margin-top: 10px;">
+              ${act.steps.map((st, i) => `
+                <button class="key-btn" onclick="stepClick(this, ${i})">${st}</button>
+              `).join('')}
+            </div>
+            <div id="power-res" style="margin-top: 8px; font-weight: bold;"></div>
+          `;
+        } else if (act.type === "sim-desktop") {
+          actDiv.innerHTML = `
+            <h4>${act.title}</h4>
+            <p>${act.desc}</p>
+            <div class="win-desktop" id="sim-win-desktop" oncontextmenu="openContextMenu(event)">
+              <div class="desktop-icons" id="desktop-icons">
+                <div class="win-icon">🗑️<br>Corbeille</div>
+              </div>
+              <div class="win-taskbar">
+                <div class="start-btn">Démarrer</div>
+                <div>21:00</div>
+              </div>
+              <div class="context-menu" id="win-context-menu">
+                <div class="context-menu-item" onclick="createFolderSim()">📁 Nouveau Dossier</div>
+                <div class="context-menu-item" onclick="alert('Image d arrière-plan personnalisée !')">🎨 Personnaliser</div>
+              </div>
+            </div>
+            <p style="font-size:0.8rem; color:#64748b; margin-top:4px;">Astuce: Un clic droit sur le bureau simulé déclenche le menu contextuel.</p>
+          `;
+        } else if (act.type === "sim-keyboard") {
+          actDiv.innerHTML = `
+            <h4>${act.title}</h4>
+            <p>${act.desc}</p>
+            <div class="keyboard">
+              <button class="key-btn" id="key-alt" onclick="toggleKey('key-alt')">Alt / Alt Gr</button>
+              <button class="key-btn" id="key-shift" onclick="toggleKey('key-shift')">Maj (Shift)</button>
+              <button class="key-btn" onclick="pressKey('3')">Touche 3</button>
+            </div>
+            <div style="margin-top:10px;">
+              Caractère produit : <span id="kb-char" style="font-size:1.4rem; font-weight:bold; color:var(--primary-light);">...</span>
+            </div>
+          `;
+        } else if (act.type === "sim-word") {
+          actDiv.innerHTML = `
+            <h4>${act.title}</h4>
+            <p>${act.desc}</p>
+            <div class="word-ribbon">
+              <button class="key-btn" onclick="formatWord('bold')"><b>G (Gras)</b></button>
+              <button class="key-btn" onclick="formatWord('italic')"><i>I (Italique)</i></button>
+              <button class="key-btn" onclick="formatWord('underline')"><u>S (Souligné)</u></button>
+              <button class="key-btn" onclick="changeColor('green')">Vert</button>
+              <button class="key-btn" onclick="changeColor('red')">Rouge</button>
+            </div>
+            <div class="word-page" contenteditable="true" id="word-editor">
+              L'État du Mali se compose d'un territoire, d'une population et d'un gouvernement.
+            </div>
+          `;
+        } else if (act.type === "octet-calc") {
+          actDiv.innerHTML = `
+            <h4>${act.title}</h4>
+            <p>${act.question}</p>
+            <p style="font-size:0.85rem; color:#64748b;">${act.hint}</p>
+            <input type="number" id="octet-val" style="padding: 6px; margin-top: 8px;">
+            <button class="btn btn-check" onclick="checkOctet(${act.answer})">Valider</button>
+            <div id="octet-res" style="margin-top: 8px; font-weight: bold;"></div>
+          `;
+        }
+
+        container.appendChild(actDiv);
+      });
+    }
+
+    // Fonctions des Activités Interactives
+    function checkCalc() {
+      const c = document.getElementById("calc-complex").value;
+      const res = document.getElementById("calc-res");
+      if (parseInt(c) === 93528) {
+        res.style.color = "var(--secondary)";
+        res.innerHTML = "✓ Exact ! L'ordinateur calcule ceci en quelques microsecondes sans fatigue, d'où l'importance du traitement automatique.";
+      } else {
+        res.style.color = "var(--danger)";
+        res.innerHTML = "✗ Réponse incorrecte. 2598 × 36 = 93528. Cet exercice montre la limite du calcul mental sans machine !";
+      }
+    }
+
+    function checkChoice(btn, isCorrect) {
+      const res = document.getElementById("choice-res");
+      if (isCorrect) {
+        btn.style.background = "#dcfce7";
+        res.style.color = "var(--secondary)";
+        res.innerHTML = "✓ Bravo ! INFORmation + autoMATIQUE = INFORMATIQUE.";
+      } else {
+        btn.style.background = "#fee2e2";
+        res.style.color = "var(--danger)";
+        res.innerHTML = "✗ Incorrect, réessayez !";
+      }
+    }
+
+    function selectDragItem(el) {
+      if (selectedItem) selectedItem.classList.remove("selected");
+      selectedItem = el;
+      el.classList.add("selected");
+    }
+
+    function dropToZone(zone, zoneName, actIdx) {
+      if (!selectedItem) return;
+      zone.appendChild(selectedItem);
+      selectedItem.classList.remove("selected");
+      selectedItem = null;
+    }
+
+    function validateDragDrop(actIdx) {
+      const act = curriculum[currentIdx].activities[actIdx];
+      // Portee limitee a l'activite concernee : sinon on verrait aussi les
+      // zones d'une autre activite de la meme lecon.
+      const zonesEls = document.querySelectorAll("#act-" + actIdx + " .drop-zone");
+      let allCorrect = zonesEls.length > 0;
+      let totalAttendu = 0;
+      let totalPlace = 0;
+
+      zonesEls.forEach(z => {
+        const title = z.querySelector("h4").textContent;
+        const validItems = act.zones[title] || [];
+        const currentItems = Array.from(z.querySelectorAll(".drag-item")).map(i => i.textContent);
+
+        totalAttendu += validItems.length;
+        totalPlace += currentItems.length;
+
+        // Une zone vide est une erreur : on compte aussi les elements attendus.
+        if (currentItems.length !== validItems.length) { allCorrect = false; }
+        currentItems.forEach(item => {
+          if (!validItems.includes(item)) { allCorrect = false; }
+        });
+      });
+
+      // Aucun element ne doit rester dans la reserve.
+      const restants = document.querySelectorAll("#act-" + actIdx + " .drag-items .drag-item").length;
+      if (restants > 0) { allCorrect = false; }
+
+      const res = document.getElementById(`drop-res-${actIdx}`);
+      if (allCorrect) {
+        res.style.color = "var(--secondary)";
+        res.innerHTML = "✓ Parfait ! Tout est classé correctement.";
+      } else {
+        res.style.color = "var(--danger)";
+        const reste = restants > 0 ? ` Il reste encore ${restants} élément(s) dans la réserve.` : "";
+        res.innerHTML = "✗ Il y a des erreurs dans votre classement. " +
+          `${totalPlace}/${totalAttendu} éléments bien placés.` + reste + " Réessayez !";
+      }
+    }
+
+    let currentPowerStep = 0;
+    function stepClick(btn, stepIdx) {
+      const res = document.getElementById("power-res");
+      if (stepIdx === currentPowerStep) {
+        btn.style.background = "#dcfce7";
+        currentPowerStep++;
+        if (currentPowerStep === 3) {
+          res.style.color = "var(--secondary)";
+          res.innerHTML = "✓ Ordinateur allumé selon la procédure sécurisée !";
+        }
+      } else {
+        btn.style.background = "#fee2e2";
+        res.style.color = "var(--danger)";
+        res.innerHTML = "✗ Attention à l'ordre chronologique pour protéger le matériel !";
+      }
+    }
+
+    function openContextMenu(e) {
+      e.preventDefault();
+      const menu = document.getElementById("win-context-menu");
+      menu.style.display = "block";
+      menu.style.left = e.offsetX + "px";
+      menu.style.top = e.offsetY + "px";
+    }
+
+    function createFolderSim() {
+      const desktop = document.getElementById("desktop-icons");
+      const f = document.createElement("div");
+      f.className = "win-icon";
+      f.innerHTML = "📁<br>Informatique";
+      desktop.appendChild(f);
+      document.getElementById("win-context-menu").style.display = "none";
+    }
+
+    let altActive = false;
+    let shiftActive = false;
+    function toggleKey(id) {
+      const btn = document.getElementById(id);
+      if (id === "key-alt") altActive = !altActive;
+      if (id === "key-shift") shiftActive = !shiftActive;
+      btn.classList.toggle("active");
+    }
+
+    function pressKey(key) {
+      const disp = document.getElementById("kb-char");
+      if (key === '3') {
+        if (altActive) {
+          disp.textContent = "# (Dièse généré grâce à Alt/AltGr)";
+        } else if (shiftActive) {
+          disp.textContent = "3 (Chiffre avec Maj)";
+        } else {
+          disp.textContent = "« ou ' (Caractère direct minuscule)";
+        }
+      }
+    }
+
+    function formatWord(cmd) {
+      document.execCommand(cmd, false, null);
+    }
+
+    function changeColor(color) {
+      document.execCommand('foreColor', false, color);
+    }
+
+    function checkOctet(expected) {
+      const val = parseInt(document.getElementById("octet-val").value);
+      const res = document.getElementById("octet-res");
+      if (val === expected) {
+        res.style.color = "var(--secondary)";
+        res.innerHTML = "✓ Bravo ! 2 × 1024 = 2048 Octets.";
+      } else {
+        res.style.color = "var(--danger)";
+        res.innerHTML = "✗ Erreur. Rappel : 1 Ko = 1024 Octets, donc 2 Ko = 2048 Octets.";
+      }
+    }
+
+    window.onload = () => {
+      initMenu();
+      initNavigation();
+      renderLesson(0);
+    };
+  </script>
+</body>
+</html>
