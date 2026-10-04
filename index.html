@@ -467,264 +467,410 @@
   </main>
 
   <script>
-    const curriculum = [
+   const curriculum = [
+  {
+    id: "ua1_c1_l1",
+    ua: "UA 1: Généralités sur l'Informatique",
+    title: "Leçon 1: Notions de Traitement & Définitions de Base",
+    situation: "Dans quel domaine apprend-on à manipuler l'ordinateur ?",
+    activities: [
       {
-        id: "ua1_c1_l1",
-        ua: "UA 1: Généralités sur l'Informatique",
-        title: "Leçon 1: Notions de Traitement & Définitions",
-        situation: "Dans quel domaine apprend-on à manipuler l'ordinateur ?",
-        activities: [
-          {
-            type: "speed-calc",
-            title: "Activité 1: Calcul mental vs Traitement automatique",
-            desc: "Résolvez d'abord l'opération simple mentalement, puis voyez le temps requis pour l'opération complexe sans machine.",
-            simple: "5 × 4 = ?",
-            complex: "2598 × 36 = ?",
-            complexAnswer: 93528
-          },
-          {
-            type: "choice",
-            title: "Activité 2: Composition du mot Informatique",
-            question: "Selon vous, de quels mots est composé le mot « Informatique » ?",
-            options: [
-              { text: "Information + Automobile", correct: false },
-              { text: "Information + Automatique", correct: true },
-              { text: "Information + Mathématiques", correct: false }
-            ]
-          }
-        ],
-        course: `
-          <div class="summary-box">
-            <p><strong>Traitement automatique :</strong> Opération réalisée par une machine telle que l'ordinateur.</p>
-            <p><strong>Traitement mental ou manuel :</strong> Opération réalisée par l'Homme sans machine.</p>
-            <p><strong>Informatique :</strong> Combinaison de <em>INFOR</em>mation et auto<em>MATIQUE</em>. C'est la science du traitement automatique de l'information par ordinateur.</p>
-            <p><strong>Données :</strong> Informations gardées et traitées dans l'ordinateur.</p>
-          </div>
-        `
+        type: "speed-calc",
+        title: "Activité 1: Calcul mental vs Traitement automatique",
+        desc: "Résolvez d'abord l'opération simple mentalement, puis observez la difficulté de l'opération complexe sans machine.",
+        simple: "5 × 4 = ?",
+        complex: "2598 × 36 = ?",
+        complexAnswer: 93528
       },
       {
-        id: "ua1_c1_l2",
-        ua: "UA 1: Généralités sur l'Informatique",
-        title: "Leçon 2: Système informatique (Hardware & Software)",
-        situation: "Un informaticien dit que l'ordinateur est conçu à l'image de l'homme : corps physique et esprit immatériel. Est-ce exact ?",
-        activities: [
-          {
-            type: "drag-drop",
-            title: "Activité pratique: Séparation Matériel vs Logiciel",
-            desc: "Classez chaque élément en cliquant dessus puis en cliquant sur la zone correspondante.",
-            items: ["Écran", "Windows 10", "Souris", "MS Word", "Processeur", "Navigateur"],
-            zones: {
-              "Partie Matérielle (Hardware)": ["Écran", "Souris", "Processeur"],
-              "Partie Logicielle (Software)": ["Windows 10", "MS Word", "Navigateur"]
-            }
-          }
-        ],
-        course: `
-          <div class="summary-box">
-            <p><strong>Système informatique :</strong> Ensemble de composants organisés ayant pour finalité de collecter, traiter, stocker, acheminer et présenter des informations.</p>
-            <p><strong>Partie matérielle (Hardware) :</strong> Partie physique et touchable (visible et palpable).</p>
-            <p><strong>Partie logicielle (Software) :</strong> Partie immatérielle composée uniquement de programmes et de logiciels.</p>
-          </div>
-        `
-      },
-      {
-        id: "ua1_c2_l1",
-        ua: "UA 1: Généralités sur l'Informatique",
-        title: "Leçon 3: La carte mère, CPU et Mémoires",
-        situation: "Quel est l'élément le plus important à l'intérieur de l'unité centrale sans lequel aucun calcul ne se fait ?",
-        activities: [
-          {
-            type: "match-role",
-            title: "Activité pratique: Rôles des composants internes",
-            desc: "Associez chaque composant interne à sa description exacte :",
-            items: [
-              { name: "Processeur (CPU)", desc: "Cerveau réalisant les opérations arithmétiques et logiques (GHz)" },
-              { name: "Mémoire RAM", desc: "Mémoire vive rapide pour emmagasiner temporairement les données en cours" },
-              { name: "Disque Dur", desc: "Support de stockage permanent des fichiers et programmes (Go/To)" }
-            ]
-          }
-        ],
-        course: `
-          <div class="summary-box">
-            <p><strong>Carte mère :</strong> Plaque électronique principale qui centralise et connecte tous les composants.</p>
-            <p><strong>Processeur :</strong> Le cerveau de l'ordinateur, mesuré en Gigahertz (GHz).</p>
-            <p><strong>RAM (Random Access Memory) :</strong> Mémoire vive ultrarapide effacée à l'extinction.</p>
-            <p><strong>Disque dur :</strong> Sauvegarde permanente de grande capacité.</p>
-          </div>
-        `
-      },
-      {
-        id: "ua1_c2_l2",
-        ua: "UA 1: Généralités sur l'Informatique",
-        title: "Leçon 4: Périphériques & Unités de stockage",
-        situation: "Quels sont les périphériques indispensables pour utiliser l'ordinateur ?",
-        activities: [
-          {
-            type: "drag-drop",
-            title: "Activité pratique: Classification des Périphériques",
-            desc: "Classez les périphériques selon leur fonction :",
-            items: ["Clavier", "Écran", "Souris", "Imprimante", "Clé USB", "Webcam", "Disque dur externe", "Haut-parleur"],
-            zones: {
-              "Entrée": ["Clavier", "Souris", "Webcam"],
-              "Sortie": ["Écran", "Imprimante", "Haut-parleur"],
-              "Stockage": ["Clé USB", "Disque dur externe"]
-            }
-          },
-          {
-            type: "octet-calc",
-            title: "Activité 4: Calcul et conversion d'octets",
-            question: "Combien d'octets y a-t-il dans 2 Ko (Kilooctets) ?",
-            answer: 2048,
-            hint: "Rappel : 1 Ko = 1024 Octets"
-          }
-        ],
-        course: `
-          <div class="summary-box">
-            <p><strong>Périphériques indispensables :</strong> Moniteur (écran), Clavier, Souris.</p>
-            <p><strong>Mesure d'écran :</strong> Exprimée en pouces de diagonale (1 pouce = 2,54 cm).</p>
-            <p><strong>Unités de stockage :</strong> 1 Octet = 8 bits. 1 Ko = 1024 O, 1 Mo = 1024 Ko, 1 Go = 1024 Mo, 1 To = 1024 Go.</p>
-          </div>
-        `
-      },
-      {
-        id: "ua2_c1_l1",
-        ua: "UA 2: Manipulation de l'ordinateur",
-        title: "Leçon 5: Mise en marche & Environnement",
-        situation: "Quelles sont les conditions idéales avant d'allumer un ordinateur ?",
-        activities: [
-          {
-            type: "sim-power",
-            title: "Activité pratique: Procédure d'allumage sécurisée",
-            desc: "Cliquez dans l'ordre chronologique exact pour allumer votre poste :",
-            steps: [
-              "Vérifier le branchement à l'onduleur",
-              "Allumer l'écran (moniteur)",
-              "Allumer l'unité centrale (bouton Power)"
-            ]
-          }
-        ],
-        course: `
-          <div class="summary-box">
-            <p><strong>Environnement idéal :</strong> Spacieux, propre, sec, aéré, protégé de la poussière et relié à un <strong>onduleur</strong> régulateur de tension.</p>
-            <p><strong>Mise en marche :</strong> Vérifier les câbles, allumer le moniteur puis l'unité centrale.</p>
-          </div>
-        `
-      },
-      {
-        id: "ua2_c1_l2",
-        ua: "UA 2: Manipulation de l'ordinateur",
-        title: "Leçon 6: Bureau Windows & Gestion des dossiers",
-        situation: "Comment organiser ses cours en dossiers et sous-dossiers sur le bureau ?",
-        activities: [
-          {
-            type: "sim-desktop",
-            title: "Simulateur Bureau Windows: Clic droit & Création de dossier",
-            desc: "Faites un clic droit sur la zone bleue du bureau simulé ci-dessous, puis cliquez sur 'Nouveau Dossier' pour créer le dossier 'Informatique'."
-          }
-        ],
-        course: `
-          <div class="summary-box">
-            <p><strong>Dossier :</strong> Icône jaune servant à organiser fichiers et sous-dossiers.</p>
-            <p><strong>Menu contextuel :</strong> Obtenu par un clic droit de la souris sur le bureau ou sur un dossier.</p>
-            <p><strong>Procédure de création :</strong> Clic droit &gt; Nouveau &gt; Dossier &gt; Taper le nom &gt; Touche Entrée.</p>
-          </div>
-        `
-      },
-      {
-        id: "ua2_c2_l1",
-        ua: "UA 2: Manipulation de l'ordinateur",
-        title: "Leçon 7: Traitement de texte (MS Word) - Saisie & Caractères",
-        situation: "Comment taper des caractères spéciaux comme '#', '@', ou '€' au clavier ?",
-        activities: [
-          {
-            type: "sim-keyboard",
-            title: "Activité pratique: Combinaisons de touches du clavier",
-            desc: "Testez les touches pour taper le symbole dièse (#) : Maintenez Alt/AltGr enfoncée puis appuyez sur 3."
-          }
-        ],
-        course: `
-          <div class="summary-box">
-            <p><strong>Saisie à 10 doigts :</strong> Utiliser la touche <strong>Entrée</strong> pour changer de paragraphe.</p>
-            <p><strong>Caractères combinés :</strong>
-              <ul>
-                <li>Minuscule directe : touche simple.</li>
-                <li>Majuscule : maintenir <strong>Maj (Shift)</strong> ou activer <strong>Verr.Maj</strong>.</li>
-                <li>Caractère bas-droit (ex: <code>#</code>, <code>@</code>) : maintenir <strong>Alt Gr</strong> enfoncée.</li>
-              </ul>
-            </p>
-          </div>
-        `
-      },
-      {
-        id: "ua2_c2_l2",
-        ua: "UA 2: Manipulation de l'ordinateur",
-        title: "Leçon 8: Traitement de texte - Mise en forme",
-        situation: "Comment modifier la taille, la police ou mettre en gras un passage d'un devoir ?",
-        activities: [
-          {
-            type: "sim-word",
-            title: "Mini-Éditeur Word: Appliquer Gras, Couleur et Taille",
-            desc: "Sélectionnez le texte ci-dessous avec votre curseur, puis cliquez sur les boutons du ruban pour changer son style."
-          }
-        ],
-        course: `
-          <div class="summary-box">
-            <p><strong>Règle d'or :</strong> Pour appliquer une mise en forme, il faut <strong>toujours sélectionner le texte</strong> avec la souris au préalable.</p>
-            <p><strong>Outils d'accueil :</strong> Police, Taille de police, Gras (G), Italique (I), Souligné (S), Couleur de police.</p>
-          </div>
-        `
-      },
-      {
-        id: "ua3_c1_l1",
-        ua: "UA 3: Généralités sur l'Internet",
-        title: "Leçon 9: Histoire, FAI & Navigateurs",
-        situation: "Quand Internet est-il arrivé au Mali et avec quels outils navigue-t-on ?",
-        activities: [
-          {
-            type: "drag-drop",
-            title: "Activité: Distinction Navigateur vs Moteur de Recherche",
-            desc: "Classez chaque outil dans sa catégorie :",
-            items: ["Google Chrome", "Mozilla Firefox", "Moteur Google", "Opera", "Yahoo Recherche", "Safari"],
-            zones: {
-              "Navigateur Web (Logiciel)": ["Google Chrome", "Mozilla Firefox", "Opera", "Safari"],
-              "Moteur de Recherche (Site/Service)": ["Moteur Google", "Yahoo Recherche"]
-            }
-          }
-        ],
-        course: `
-          <div class="summary-box">
-            <p><strong>Origine :</strong> Réseau américain ARPANET (années 1960). Web créé en 1990.</p>
-            <p><strong>Internet au Mali :</strong> Lancement officiel le <strong>20 Septembre 1997</strong>.</p>
-            <p><strong>Navigateur :</strong> Logiciel permettant d'afficher les pages Web (Chrome, Firefox, Safari...).</p>
-            <p><strong>Moteur de recherche :</strong> Outil permettant de chercher des pages via des mots-clés (Google, Yahoo...).</p>
-          </div>
-        `
-      },
-      {
-        id: "ua3_c2_l1",
-        ua: "UA 3: Généralités sur l'Internet",
-        title: "Leçon 10: Avantages & Dangers du Web",
-        situation: "Peut-on être à l'abri des dérives d'Internet ?",
-        activities: [
-          {
-            type: "drag-drop",
-            title: "Activité: Trier Avantages et Inconvénients",
-            desc: "Classez chaque pratique ou impact selon qu'il soit un avantage ou un danger :",
-            items: ["Recherche documentaire", "Cyberdépendance", "E-mails rapides", "Virus & piratage", "Vente en ligne", "Plagiat (copier/coller sans effort)"],
-            zones: {
-              "Avantages du Web": ["Recherche documentaire", "E-mails rapides", "Vente en ligne"],
-              "Dangers & Inconvénients": ["Cyberdépendance", "Virus & piratage", "Plagiat (copier/coller sans effort)"]
-            }
-          }
-        ],
-        course: `
-          <div class="summary-box">
-            <p><strong>Avantages :</strong> Accès illimité au savoir, communication instantanée, transactions et entraide.</p>
-            <p><strong>Inconvénients majeurs :</strong> Cyberdépendance (déconnexion de la vie sociale), piratage, virus, sites nuisibles et perte du goût de l'effort par le copier/coller.</p>
-          </div>
-        `
+        type: "choice",
+        title: "Activité 2: Composition du mot Informatique",
+        question: "De quels mots est composé le terme « Informatique » ?",
+        options: [
+          { text: "Information + Automobile", correct: false },
+          { text: "Information + Automatique", correct: true },
+          { text: "Information + Mathématiques", correct: false }
+        ]
       }
-    ];
+    ],
+    course: `
+      <div class="summary-box">
+        <h4 style="color:var(--primary); margin-bottom:8px;">1. Définitions Fondamentales</h4>
+        <p><strong>• Traitement automatique :</strong> Opération réalisée par une machine telle que l'ordinateur, sans intervention de la réflexion humaine directe pendant l'exécution du calcul.</p>
+        <p><strong>• Traitement mental ou manuel :</strong> Opération exécutée entièrement par le cerveau humain, un crayon ou une méthode manuelle sans assistance numérique.</p>
+        <p><strong>• Informatique :</strong> Science du traitement rationnel et automatique de l'information à l'aide d'ordinateurs (mot-valise combinant <strong>INFOR</strong>mation et auto<strong>MATIQUE</strong>).</p>
+        <p><strong>• Information :</strong> Élément porteur de renseignement ou de sens (un texte, une date, un son, une image).</p>
+        <p><strong>• Donnée :</strong> Désigne toute information brute codée et enregistrée dans la mémoire de l'ordinateur pour pouvoir être traitée.</p>
+        <p><strong>• Ordinateur :</strong> Ensemble de composants électroniques interconnectés capables de traiter de grandes masses d'informations à une vitesse extrême. Imaginé dès les années 1830 par <em>Charles Babbage</em>.</p>
+      </div>
+
+      <div class="summary-box" style="border-left-color: var(--secondary); background: #f0fdf4;">
+        <h4 style="color:var(--secondary); margin-bottom:8px;">2. Cas Concrets & Exemples d'Application</h4>
+        <ul>
+          <li><strong>Exemple de traitement manuel vs automatique :</strong> Le professeur calcule à la main avec une règle et un stylo la moyenne de 60 élèves (traitement manuel qui prend plusieurs heures et présente des risques d'erreurs). Le proviseur saisit les mêmes notes dans un logiciel informatique qui produit les bulletins de tout le lycée en une fraction de seconde (traitement automatique fiable et instantané).</li>
+          <li><strong>Exemple d'information vs donnée :</strong> 
+            <br><em>Information :</em> « Mamadou a obtenu 16/20 au devoir d'informatique le 12 octobre à Bamako » (compréhensible par l'homme).
+            <br><em>Donnée :</em> <code>Mamadou,16,Info,12/10</code> stocké sous forme binaire dans un fichier de la base de données de l'établissement scolaire.</li>
+        </ul>
+      </div>
+    `
+  },
+  {
+    id: "ua1_c1_l2",
+    ua: "UA 1: Généralités sur l'Informatique",
+    title: "Leçon 2: Système informatique (Hardware & Software)",
+    situation: "Un informaticien dit que l'ordinateur est conçu à l'image de l'homme : corps physique et esprit immatériel. Est-ce exact ?",
+    activities: [
+      {
+        type: "drag-drop",
+        title: "Activité pratique: Séparation Matériel vs Logiciel",
+        desc: "Classez chaque élément en cliquant dessus puis en cliquant sur la zone correspondante.",
+        items: ["Écran", "Windows 10", "Souris", "MS Word", "Processeur", "Navigateur"],
+        zones: {
+          "Partie Matérielle (Hardware)": ["Écran", "Souris", "Processeur"],
+          "Partie Logicielle (Software)": ["Windows 10", "MS Word", "Navigateur"]
+        }
+      }
+    ],
+    course: `
+      <div class="summary-box">
+        <h4 style="color:var(--primary); margin-bottom:8px;">1. Définitions Fondamentales</h4>
+        <p><strong>• Système :</strong> Ensemble d'éléments distincts en interaction dynamique, organisés en vue d'atteindre un but commun au sein d'un tout cohérent.</p>
+        <p><strong>• Système informatique :</strong> Ensemble coordonné de moyens matériels et logiciels conçu pour collecter, traiter, stocker, acheminer et restituer des informations.</p>
+        <p><strong>• Partie matérielle (Hardware) :</strong> Composants physiques, électroniques et mécaniques visibles et touchables qui forment la carcasse et les circuits de l'ordinateur.</p>
+        <p><strong>• Partie logicielle (Software) :</strong> Composante immatérielle et logique regroupant l'ensemble des instructions, programmes et données qui animent le matériel.</p>
+      </div>
+
+      <div class="summary-box" style="border-left-color: var(--secondary); background: #f0fdf4;">
+        <h4 style="color:var(--secondary); margin-bottom:8px;">2. Cas Concrets & Analogies</h4>
+        <ul>
+          <li><strong>Analogie de l'homme :</strong> Le Hardware est équivalent au corps humain (les yeux, les mains, le crâne, les organes). Le Software est équivalent à l'intelligence, à la mémoire et aux pensées de l'homme. Un corps sans esprit est inerte ; de même, un ordinateur sans logiciel n'est qu'un boîtier de ferraille inutilisable.</li>
+          <li><strong>Cas concret d'indissociabilité :</strong> Si vous branchez une souris (matériel/hardware) sur votre ordinateur mais qu'aucun système d'exploitation n'est installé (logiciel/software), la souris ne produira aucun curseur sur l'écran et ne servira à rien.</li>
+        </ul>
+      </div>
+    `
+  },
+  {
+    id: "ua1_c2_l1",
+    ua: "UA 1: Généralités sur l'Informatique",
+    title: "Leçon 3: L'Unité Centrale, Carte Mère & Mémoires",
+    situation: "Quel est l'élément le plus important à l'intérieur de l'unité centrale sans lequel aucun calcul ne se fait ?",
+    activities: [
+      {
+        type: "match-role",
+        title: "Activité pratique: Rôles des composants internes",
+        desc: "Associez chaque composant interne à sa fonction exacte :",
+        items: [
+          { name: "Processeur (CPU)", desc: "Cerveau réalisant les opérations arithmétiques et logiques (fréquence en GHz)" },
+          { name: "Mémoire RAM", desc: "Mémoire vive volatile emmagasinant temporairement les programmes en cours d'exécution" },
+          { name: "Disque Dur", desc: "Support de stockage permanent conservant les documents et logiciels éteints (Go/To)" }
+        ]
+      }
+    ],
+    course: `
+      <div class="summary-box">
+        <h4 style="color:var(--primary); margin-bottom:8px;">1. Définitions Fondamentales</h4>
+        <p><strong>• Unité centrale :</strong> Boîtier principal de l'ordinateur qui centralise les composants électroniques et traite toutes les données.</p>
+        <p><strong>• Carte mère :</strong> Circuit imprimé fondamental qui interconnecte et gère le processeur, les barrettes de RAM, les disques de stockage et les connecteurs périphériques.</p>
+        <p><strong>• Processeur (CPU) :</strong> Cerveau du système. Il exécute les instructions logiques et arithmétiques. Sa cadence d'horloge s'exprime en <strong>Gigahertz (GHz)</strong> (milliards d'opérations par seconde).</p>
+        <p><strong>• Mémoire RAM (Random Access Memory) :</strong> Mémoire vive, très rapide mais volatile (son contenu s'efface instantanément à la coupure de courant). Elle conserve les programmes en cours d'utilisation.</p>
+        <p><strong>• Disque dur interne :</strong> Dispositif de mémoire de masse magnétique ou électronique conservant durablement les données et les logiciels, même hors tension.</p>
+      </div>
+
+      <div class="summary-box" style="border-left-color: var(--secondary); background: #f0fdf4;">
+        <h4 style="color:var(--secondary); margin-bottom:8px;">2. Cas Concrets & Situations Réelles</h4>
+        <ul>
+          <li><strong>Le rôle de la RAM lors d'une coupure d'électricité :</strong> Un élève rédige un devoir sur Word sans cliquer sur enregistrer. Si une coupure d'électricité survient à Bamako, le texte qui n'était stocké que dans la <em>RAM (volatile)</em> disparaît définitivement. S'il avait fait « Enregistrer », le texte aurait été transféré sur le <em>Disque dur (permanent)</em> et resterait récupérable.</li>
+          <li><strong>Analogie du bureau de travail :</strong> La RAM est la surface de votre table de travail (plus elle est spacieuse, plus vous étalez de livres ouverts en même temps). Le disque dur est l'armoire de rangement au fond de la pièce où l'on archive les classeurs pour l'année prochaine.</li>
+        </ul>
+      </div>
+    `
+  },
+  {
+    id: "ua1_c2_l2",
+    ua: "UA 1: Généralités sur l'Informatique",
+    title: "Leçon 4: Périphériques Indispensables & Unités de Mesure",
+    situation: "Quels sont les périphériques indispensables pour manipuler un ordinateur ?",
+    activities: [
+      {
+        type: "drag-drop",
+        title: "Activité pratique: Classification des Périphériques",
+        desc: "Classez chaque élément selon sa nature :",
+        items: ["Clavier", "Écran", "Souris", "Imprimante", "Clé USB", "Webcam", "Disque dur externe", "Haut-parleur"],
+        zones: {
+          "Périphériques d'Entrée": ["Clavier", "Souris", "Webcam"],
+          "Périphériques de Sortie": ["Écran", "Imprimante", "Haut-parleur"],
+          "Périphériques de Stockage": ["Clé USB", "Disque dur externe"]
+        }
+      },
+      {
+        type: "octet-calc",
+        title: "Activité: Calcul et conversion d'octets",
+        question: "Combien d'octets contient un fichier de 2 Ko (Kilooctets) ?",
+        answer: 2048,
+        hint: "Règle : 1 Ko = 1024 Octets"
+      }
+    ],
+    course: `
+      <div class="summary-box">
+        <h4 style="color:var(--primary); margin-bottom:8px;">1. Définitions Fondamentales</h4>
+        <p><strong>• Périphérique :</strong> Matériel externe relié à l'unité centrale permettant la communication entre l'ordinateur et l'utilisateur.</p>
+        <p><strong>• Périphériques indispensables :</strong> Le moniteur (écran plat ou cathodique), le clavier et la souris. Sans eux, l'interaction homme-machine de base est impossible.</p>
+        <p><strong>• Classification :</strong>
+          <br>- <em>Entrée :</em> Envoie des signaux ou des textes vers l'unité centrale (Clavier, Souris, Scanner, Webcam, Micro).
+          <br>- <em>Sortie :</em> Reçoit et restitue les données traitées vers l'extérieur (Écran, Imprimante, Enceintes/Écouteurs).
+          <br>- <em>Stockage :</em> Conserve et sauvegarde les données de façon amovible (Clé USB, Carte mémoire, Disque externe, CD-ROM).
+        </p>
+        <p><strong>• Octet (Byte) :</strong> Unité élémentaire de mesure de la quantité d'information composée de 8 bits (un bit valant 0 ou 1).</p>
+        <p><strong>• Règle de conversion des multiples :</strong>
+          <br>1 Kilo-octet (Ko) = 1024 Octets | 1 Méga-octet (Mo) = 1024 Ko
+          <br>1 Giga-octet (Go) = 1024 Mo | 1 Téra-octet (To) = 1024 Go.
+        </p>
+      </div>
+
+      <div class="summary-box" style="border-left-color: var(--secondary); background: #f0fdf4;">
+        <h4 style="color:var(--secondary); margin-bottom:8px;">2. Cas Concrets & Échelles de Stockage</h4>
+        <ul>
+          <li><strong>1 Caractère = 1 Octet :</strong> Si vous tapez la lettre « A » dans un fichier texte, elle occupe exactement 1 Octet sur le disque dur. Un paragraphe de 1024 lettres occupera 1 Ko.</li>
+          <li><strong>Exemples de capacités réelles :</strong>
+            <br>- Une photo prise par un smartphone standard pèse environ <strong>3 Mo</strong> (soit environ 3 000 000 octets).
+            <br>- Une chanson au format audio MP3 pèse environ <strong>5 à 8 Mo</strong>.
+            <br>- Un film entier en haute définition pèse entre <strong>1,5 Go et 4 Go</strong>.
+            <br>- Une clé USB courante de <strong>32 Go</strong> peut stocker environ 8 000 morceaux de musique ou 10 000 photos scolaires.</li>
+        </ul>
+      </div>
+    `
+  },
+  {
+    id: "ua1_c3_l1",
+    ua: "UA 1: Généralités sur l'Informatique",
+    title: "Leçon 5: Logiciels Système et Logiciels d'Application",
+    situation: "La partie matérielle est-elle suffisante pour faire fonctionner l'ordinateur ?",
+    activities: [
+      {
+        type: "choice",
+        title: "Activité pratique: Reconnaissance des types de logiciels",
+        question: "Quel logiciel parmi les suivants est un Logiciel Système (Système d'exploitation) ?",
+        options: [
+          { text: "Microsoft Word", correct: false },
+          { text: "Windows 10", correct: true },
+          { text: "VLC Media Player", correct: false }
+        ]
+      }
+    ],
+    course: `
+      <div class="summary-box">
+        <h4 style="color:var(--primary); margin-bottom:8px;">1. Définitions Fondamentales</h4>
+        <p><strong>• Programme :</strong> Suite ordonnée d'instructions exécutées par l'ordinateur pour résoudre un problème donné.</p>
+        <p><strong>• Logiciel Système (Système d'exploitation) :</strong> Ensemble de programmes fondamentaux assurant la gestion des ressources matérielles (processeur, mémoires, périphériques) et établissant l'interface avec l'utilisateur (Ex : Windows, Linux, Android, macOS).</p>
+        <p><strong>• Logiciel d'application :</strong> Programme développé spécifiquement pour accomplir une tâche métier précise (bureautique, dessin, comptabilité).</p>
+      </div>
+
+      <div class="summary-box" style="border-left-color: var(--secondary); background: #f0fdf4;">
+        <h4 style="color:var(--secondary); margin-bottom:8px;">2. Cas Concrets & Matrice des Logiciels d'Application</h4>
+        <ul>
+          <li><strong>MS Word :</strong> Conçu pour le traitement de texte (Exemple concret : rédaction d'une demande de relevé de notes du DEF ou du Baccalauréat adressée au Directeur du Centre d'Animation Pédagogique).</li>
+          <li><strong>MS Excel :</strong> Tableur destiné aux calculs et graphiques (Exemple concret : calcul automatique des moyennes trimestrielles des élèves d'une classe de 10ème avec application des coefficients de chaque matière).</li>
+          <li><strong>MS PowerPoint :</strong> Présentation assistée par ordinateur (Exemple concret : projection de diapositives illustrées pour un exposé de biologie ou d'histoire en classe).</li>
+          <li><strong>MS Access :</strong> Gestion de bases de données relationnelles (Exemple concret : archivage et gestion des dossiers administratifs et matricules de tous les élèves d'un lycée).</li>
+        </ul>
+      </div>
+    `
+  },
+  {
+    id: "ua2_c1_l1",
+    ua: "UA 2: Manipulation de l'ordinateur",
+    title: "Leçon 6: Mise en Marche & Environnement de Travail",
+    situation: "Quelles sont les conditions nécessaires et les étapes pour allumer un ordinateur sans l'endommager ?",
+    activities: [
+      {
+        type: "sim-power",
+        title: "Activité pratique: Séquence chronologique de démarrage",
+        desc: "Cliquez sur les actions dans l'ordre strict prescrit pour sécuriser les équipements :",
+        steps: [
+          "1. Vérifier le branchement à l'onduleur régulateur",
+          "2. Appuyer sur le bouton d'allumage de l'écran (Moniteur)",
+          "3. Appuyer sur le bouton Power de l'Unité Centrale"
+        ]
+      }
+    ],
+    course: `
+      <div class="summary-box">
+        <h4 style="color:var(--primary); margin-bottom:8px;">1. Définitions Fondamentales</h4>
+        <p><strong>• Environnement de travail approprié :</strong> L'ordinateur doit être placé dans une salle spacieuse, propre, sèche et bien aérée pour éviter la surchauffe thermique et la détérioration par l'humidité.</p>
+        <p><strong>• Poussière :</strong> Ennemi majeur des circuits électroniques qui obstrue les ventilateurs et provoque des courts-circuits.</p>
+        <p><strong>• Onduleur (UPS) :</strong> Boîtier de sécurité électrique intercalé entre la prise murale et l'ordinateur. Il régule les hausses de tension et fournit un courant de secours sur batterie lors des coupures inopinées.</p>
+      </div>
+
+      <div class="summary-box" style="border-left-color: var(--secondary); background: #f0fdf4;">
+        <h4 style="color:var(--secondary); margin-bottom:8px;">2. Cas Concrets & Conséquences Pratiques</h4>
+        <ul>
+          <li><strong>Cas concret du délestage électrique :</strong> En période de forte chaleur à Bamako ou Kayes, les coupures soudaines de courant provoquent des micro-arcs électriques qui grillent les alimentations des PC non protégés. L'onduleur émet un signal sonore (« bip-bip ») et donne 10 à 15 minutes à l'opérateur pour sauvegarder son document et éteindre la machine en toute sécurité.</li>
+          <li><strong>Procédure d'extinction conforme :</strong> Ne jamais débrancher directement la prise murale. Toujours cliquer sur <em>Démarrer &gt; Marche/Arrêt &gt; Arrêter</em> pour permettre au système de fermer les fichiers en cours.</li>
+        </ul>
+      </div>
+    `
+  },
+  {
+    id: "ua2_c1_l2",
+    ua: "UA 2: Manipulation de l'ordinateur",
+    title: "Leçon 7: Bureau Windows, Souris & Arborescence de Dossiers",
+    situation: "Comment organiser ses cours dans la mémoire de l'ordinateur sans perdre aucun fichier ?",
+    activities: [
+      {
+        type: "sim-desktop",
+        title: "Simulateur Windows: Clic droit & Création de dossiers",
+        desc: "Faites un clic droit sur le bureau simulé, puis cliquez sur 'Nouveau Dossier' pour créer le dossier 'Informatique'."
+      }
+    ],
+    course: `
+      <div class="summary-box">
+        <h4 style="color:var(--primary); margin-bottom:8px;">1. Définitions Fondamentales</h4>
+        <p><strong>• Bureau Windows :</strong> Interface visuelle apparaissant dès la fin du chargement du système. Espace de travail servant à déposer raccourcis, fichiers et dossiers.</p>
+        <p><strong>• Menu contextuel :</strong> Liste déroulante d'actions contextuelles qui apparaît instantanément dès que l'utilisateur appuie sur le <strong>bouton droit</strong> de la souris.</p>
+        <p><strong>• Fichier :</strong> Document contenant de l'information (texte, image, son, vidéo) caractérisé par un nom et une extension (ex: .docx, .xlsx).</p>
+        <p><strong>• Dossier (Répertoire) :</strong> Boîte de rangement virtuelle représentée généralement par une icône d'enveloppe jaune, servant à regrouper et hiérarchiser des fichiers ou d'autres sous-dossiers.</p>
+      </div>
+
+      <div class="summary-box" style="border-left-color: var(--secondary); background: #f0fdf4;">
+        <h4 style="color:var(--secondary); margin-bottom:8px;">2. Cas Concrets & Arborescence Pédagogique</h4>
+        <ul>
+          <li><strong>Exemple d'organisation scolaire :</strong> Pour éviter la confusion sur un ordinateur familial ou de salle informatique, l'élève crée sur le Bureau un dossier principal <code>10CG_Mamadou</code>, contenant des sous-dossiers par matière :
+            <br>└─ 📁 <code>10CG_Mamadou</code>
+            <br>&nbsp;&nbsp;&nbsp;├── 📁 <code>Informatique</code>
+            <br>&nbsp;&nbsp;&nbsp;│&nbsp;&nbsp;&nbsp;├── 📄 <code>Resume_UA1.docx</code>
+            <br>&nbsp;&nbsp;&nbsp;│&nbsp;&nbsp;&nbsp;└── 📄 <code>Exercices_Word.docx</code>
+            <br>&nbsp;&nbsp;&nbsp;├── 📁 <code>Mathematiques</code>
+            <br>&nbsp;&nbsp;&nbsp;└── 📁 <code>Physique_Chimie</code>
+          </li>
+        </ul>
+      </div>
+    `
+  },
+  {
+    id: "ua2_c2_l1",
+    ua: "UA 2: Manipulation de l'ordinateur",
+    title: "Leçon 8: Traitement de Texte (MS Word) - Saisie & Mise en Forme",
+    situation: "Fanta veut faire une demande manuscrite pour avoir son diplôme à l'académie. Elle préfère la saisir proprement sur ordinateur.",
+    activities: [
+      {
+        type: "sim-keyboard",
+        title: "Activité pratique: Saisie des Caractères Spéciaux",
+        desc: "Activez Alt/Alt Gr puis cliquez sur 3 pour générer le symbole dièse (#)."
+      },
+      {
+        type: "sim-word",
+        title: "Activité pratique: Éditeur & Mise en forme",
+        desc: "Sélectionnez le texte et appliquez-lui du gras ou une couleur de police dans le ruban ci-dessous."
+      }
+    ],
+    course: `
+      <div class="summary-box">
+        <h4 style="color:var(--primary); margin-bottom:8px;">1. Définitions Fondamentales</h4>
+        <p><strong>• Traitement de texte :</strong> Application logicielle spécialisée dans la création, la modification, la vérification orthographique, la mise en forme et l'impression de textes écrits.</p>
+        <p><strong>• Point d'insertion (Curseur) :</strong> Barre verticale clignotante indiquant l'endroit exact où les caractères tapés au clavier apparaîtront sur la feuille.</p>
+        <p><strong>• Mise en forme :</strong> Ensemble des modifications apportées à l'apparence visuelle d'un document (choix de la police d'écriture, taille, styles <strong>Gras</strong>, <em>Italique</em>, <u>Souligné</u>, alignement et couleurs) sans en changer le sens textuel.</p>
+        <p><strong>• Règle d'or de la mise en forme :</strong> « On sélectionne toujours avant d'appliquer » : aucune action de mise en forme ne peut prendre effet si le mot ou le paragraphe n'est pas surligné à l'aide de la souris.</p>
+      </div>
+
+      <div class="summary-box" style="border-left-color: var(--secondary); background: #f0fdf4;">
+        <h4 style="color:var(--secondary); margin-bottom:8px;">2. Cas Concrets & Raccourcis Usuels</h4>
+        <ul>
+          <li><strong>Combinaisons de touches courantes :</strong>
+            <br>- Pour taper le chiffre <strong>3</strong> : appuyer sur <code>Shift + 3</code> (ou activer <code>Verr.Maj</code>).
+            <br>- Pour taper les guillemets <strong>«</strong> : touche directe <code>3</code> en mode minuscule.
+            <br>- Pour taper le dièse <strong>#</strong> ou l'arobase <strong>@</strong> : maintenir <code>Alt Gr</code> enfoncé puis presser la touche correspondante.
+          </li>
+          <li><strong>Exemple pratique de mise en forme administrative :</strong> Dans une lettre officielle adressée au Proviseur :
+            <br>- Le titre « <u>DEMANDE DE RELEVÉ DE NOTES</u> » est mis en <strong>Gras</strong>, <strong>Taille 16</strong> et centré.
+            <br>- Le corps de texte explicatif reste en police classique (Arial ou Times New Roman), <strong>Taille 12</strong>, texte justifié.
+          </li>
+        </ul>
+      </div>
+    `
+  },
+  {
+    id: "ua3_c1_l1",
+    ua: "UA 3: Généralités sur l'Internet",
+    title: "Leçon 9: Notions, Historique & Moyens d'Accès au Web",
+    situation: "Votre professeur vous donne un exposé à préparer à domicile. Comment accéder aux ressources mondiales ?",
+    activities: [
+      {
+        type: "drag-drop",
+        title: "Activité pratique: Distinction Navigateur vs Moteur de recherche",
+        desc: "Classez chaque élément dans sa famille respective :",
+        items: ["Google Chrome", "Mozilla Firefox", "Moteur Google", "Opera", "Yahoo Recherche", "Safari"],
+        zones: {
+          "Navigateurs Web (Logiciels)": ["Google Chrome", "Mozilla Firefox", "Opera", "Safari"],
+          "Moteurs de Recherche (Services de recherche)": ["Moteur Google", "Yahoo Recherche"]
+        }
+      }
+    ],
+    course: `
+      <div class="summary-box">
+        <h4 style="color:var(--primary); margin-bottom:8px;">1. Définitions Fondamentales</h4>
+        <p><strong>• Internet :</strong> Réseau télématique mondial reliant l'ensemble des réseaux et serveurs informatiques de la planète (contraction de <em>International Network</em>).</p>
+        <p><strong>• Web (Toile ou World Wide Web) :</strong> Système de consultation et de navigation public au sein de millions de pages interconnectées par des liens hypertexte à travers Internet.</p>
+        <p><strong>• Fournisseur d'Accès à Internet (FAI) :</strong> Entreprise ou opérateur de télécommunication vendant l'accès au réseau via une liaison filaire ou radioélectrique (Exemples au Mali : Malitel/Moov Africa, Orange Mali, Telecel).</p>
+        <p><strong>• Navigateur Web :</strong> Logiciel installé sur l'ordinateur ou le smartphone permettant de déchiffrer et d'afficher le contenu des pages web (Ex : Chrome, Firefox, Safari, Edge, Opera).</p>
+        <p><strong>• Moteur de recherche :</strong> Outil applicatif en ligne indexant des milliards de pages pour permettre à l'utilisateur de trouver des ressources à partir de mots-clés (Ex : Google, Bing, Yahoo).</p>
+      </div>
+
+      <div class="summary-box" style="border-left-color: var(--secondary); background: #f0fdf4;">
+        <h4 style="color:var(--secondary); margin-bottom:8px;">2. Cas Concrets & Repères Historiques</h4>
+        <ul>
+          <li><strong>Repères historiques :</strong>
+            <br>- Années 1960 : Naissance du réseau militaire américain <strong>ARPANET</strong>.
+            <br>- 1969 : Première liaison reliant les ordinateurs de 4 grandes universités des États-Unis.
+            <br>- 1972 : Utilisation officielle du vocable « Internet ».
+            <br>- Début des années 1990 : Invention du Web grand public par Tim Berners-Lee.
+            <br>- <strong>20 Septembre 1997 :</strong> Lancement officiel et historique d'Internet au Mali.
+          </li>
+          <li><strong>Analogie du réseau routier :</strong>
+            <br>- Internet est l'ensemble des routes et autoroutes physiques du pays.
+            <br>- Le navigateur est votre voiture qui roule sur cette route.
+            <br>- Le moteur de recherche est le panneau indicateur ou le plan de la ville qui vous guide jusqu'à l'adresse précise.
+          </li>
+        </ul>
+      </div>
+    `
+  },
+  {
+    id: "ua3_c2_l1",
+    ua: "UA 3: Généralités sur l'Internet",
+    title: "Leçon 10: Avantages & Dangers du Web pour l'Élève",
+    situation: "Après avoir utilisé Internet pour vos devoirs, êtes-vous certain d'être à l'abri de ses dangers ?",
+    activities: [
+      {
+        type: "drag-drop",
+        title: "Activité pratique: Diagnostic Opportunités vs Menaces",
+        desc: "Classez chaque pratique selon ses retombées sur la scolarité et la vie quotidienne :",
+        items: ["Recherche de cours et exercices", "Cyberdépendance", "Messagerie électronique", "Virus et rançongiciels", "Achats en ligne", "Plagiat (copier/coller d'exposé sans lire)"],
+        zones: {
+          "Avantages et Opportunités": ["Recherche de cours et exercices", "Messagerie électronique", "Achats en ligne"],
+          "Dangers et Inconvénients": ["Cyberdépendance", "Virus et rançongiciels", "Plagiat (copier/coller d'exposé sans lire)"]
+        }
+      }
+    ],
+    course: `
+      <div class="summary-box">
+        <h4 style="color:var(--primary); margin-bottom:8px;">1. Définitions Fondamentales</h4>
+        <p><strong>• Cyberdépendance :</strong> Trouble psychologique et comportemental entraînant une utilisation excessive, compulsive et incontrôlée des écrans et d'Internet, provoquant une rupture avec le milieu familial, social et scolaire.</p>
+        <p><strong>• Virus informatique :</strong> Programme malveillant invisible capable de se reproduire d'une machine à une autre, conçu pour corrompre, voler ou détruire les données d'un ordinateur.</p>
+        <p><strong>• Plagiat :</strong> Action de copier textuellement le travail, l'exposé ou la rédaction d'un auteur sans le citer ni reformuler, en le présentant frauduleusement comme sa propre production intellectuelle.</p>
+        <p><strong>• Cyber-escroquerie (Phishing) :</strong> Techniques frauduleuses d'usurpation d'identité en ligne destinées à soutirer de l'argent ou des codes confidentiels (notamment sur les services de paiement mobile).</p>
+      </div>
+
+      <div class="summary-box" style="border-left-color: var(--secondary); background: #f0fdf4;">
+        <h4 style="color:var(--secondary); margin-bottom:8px;">2. Cas Concrets & Règles d'Hygiène Numérique</h4>
+        <ul>
+          <li><strong>Le piège du plagiat lors d'un devoir d'histoire :</strong> Un élève recopie mot à mot un article complet de Wikipédia sur l'Empire du Mali sans en lire le contenu. En classe, interrogé par son professeur, il est incapable d'expliquer le sens des mots compliqués qu'il a imprimés. Il récolte une note de zéro pour tricherie. La bonne pratique consiste à lire la documentation, prendre des notes manuscrites, puis rédiger avec ses propres mots en mentionnant la source.</li>
+          <li><strong>Le danger de la cyber-escroquerie :</strong> Réception d'un SMS ou d'un lien WhatsApp prétendant que « vous avez gagné un prix scolaire de 100 000 FCFA, cliquez ici et entrez le code secret Orange Money de vos parents ». C'est une tentative de piratage directe : un code PIN ne doit jamais être partagé.</li>
+        </ul>
+      </div>
+    `
+  }
+];
 
     let currentIdx = 0;
     let selectedItem = null;
